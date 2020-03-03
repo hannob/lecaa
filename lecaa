@@ -1,7 +1,8 @@
 #!/bin/bash
 
-out=$(openssl s_client -connect $1:443 -servername $1 -showcerts </dev/null 2>/dev/null | openssl x509 -text -noout | grep -A 1 Serial\ Number | tr -d : | tail -n 1)
+out=$(openssl s_client -connect "$1":443 -servername "$1" -showcerts </dev/null 2>/dev/null | 
+openssl x509 -noout -serial | grep ^serial= | cut -d= -f2)
 
-look $out lecaa-serials.txt > /dev/null
+look "$out" lecaa-serials.txt > /dev/null
 
-[ $? -eq 0 ] && echo $1 $out affected
+[ $? -eq 0 ] && echo "$1" "$out" affected
