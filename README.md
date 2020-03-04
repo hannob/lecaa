@@ -20,7 +20,7 @@ It will output affected hosts and be silent for unaffected hosts.
 This can be used in combination with GNU parallel to check a large
 number of hosts:
 
-    parallel -a [list_of_hosts] -j 30 --timeout 10 ./lecaa
+    parallel -a [file_with_list_of_hosts] -j 30 --timeout 10 ./lecaa
 
 background
 ----------
