@@ -1,12 +1,15 @@
 #!/bin/bash
+
 IN=$1:$2
 IFS=':'; arrIN=($IN); unset IFS;
 host=${arrIN[0]};
 port=${arrIN[1]};
 [ -z "$port" ] && port=443
 
-out=$(openssl s_client -connect $host:$port -servername $host -showcerts </dev/null 2>/dev/null | openssl x509 -text -noout | grep -A 1 Serial\ Number | tr -d : | tail -n 1)
+out=$(openssl s_client -connect "$host:$port" -servername "$host" -showcerts </dev/null 2>/dev/null | openssl x509 -text -noout | grep -A 1 Serial\ Number | tr -d : | tr -d ' ' | tail -n 1)
 
-look $out lecaa-serials.txt > /dev/null
+[ -z "$out" ] && exit
 
-[ $? -eq 0 ] && echo $1 $out affected
+look "$out" lecaa-serials.txt > /dev/null
+
+[ "$?" -eq 0 ] && echo "$1" "$out" affected
