@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 IN=$1:$2
 IFS=':'; arrIN=($IN); unset IFS;
