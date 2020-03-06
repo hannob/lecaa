@@ -21,6 +21,12 @@ This can be used in combination with GNU parallel to check a large
 number of hosts:
 
     parallel -a [file_with_list_of_hosts] -j 30 --timeout 10 ./lecaa
+    
+You can use following alternative on macOS without GNU parallel due to
+possible moreutils package conflicts:
+
+    # requirements for following command: brew install findutils
+    gxargs -l ./lecaa < [file_with_list_of_hosts]
 
 background
 ----------
